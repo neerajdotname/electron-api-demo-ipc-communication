@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+
+  <body>
+    <webview id="webview" src="https://www.bigbinary.com/san-francisco" style="position:absolute;width:100%;height:100%;" preload="./preload.js"></webview>
+    <h1 class="indicator"></h1>
+  </body>
+
+   <script>
+  onload = () => {
+    const webview = document.querySelector('webview')
+    const indicator = document.querySelector('.indicator')
+
+    const loadstart = () => {
+      indicator.innerText = 'loading...'
+    }
+
+    const loadstop = () => {
+      indicator.innerText = ''
+    }
+
+    webview.addEventListener('did-start-loading', loadstart)
+    webview.addEventListener('did-stop-loading', loadstop)
+
+    webview.addEventListener('dom-ready', () => {
+      webview.openDevTools()
+    })
+
+    webview.addEventListener('did-finish-load', () => {
+      webview.insertCSS("body { color:red !important; }");
+    })
+
+  }
+</script>
+
+</html>
+
