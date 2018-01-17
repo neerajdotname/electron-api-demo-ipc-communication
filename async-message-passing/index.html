@@ -27,6 +27,11 @@
     webview.addEventListener('dom-ready', () => {
       webview.openDevTools()
     })
+
+    webview.addEventListener('did-finish-load', () => {
+      webview.insertCSS("body { color:red !important; }");
+    })
+
   }
 </script>
 
