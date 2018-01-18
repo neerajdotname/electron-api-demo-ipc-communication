@@ -50,6 +50,8 @@ const sendSelectorToRenderer = (selector) => {
   ipcRenderer.sendToHost(selector);
 }
 
-ipcRenderer.on('selector-search', (event, message) => {
-  console.log(message);
+ipcRenderer.on('selector-search', (event, selector) => {
+  console.log(selector);
+  const matchCount = $(selector).length;
+  ipcRenderer.sendToHost("search-count", matchCount);
 })

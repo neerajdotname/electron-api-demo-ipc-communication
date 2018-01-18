@@ -8,6 +8,7 @@
        <span>Selector Assistant</span>
        <form onsubmit="event.preventDefault(); handleFormSubmission();">
           <input type="text" id="selectorForAssistant" />
+          <div id="matchCount"></div>
           <input type="submit" value="Submit" />
        </form>
     </p>
@@ -32,7 +33,16 @@
     webview.addEventListener('did-stop-loading', loadstop)
 
     webview.addEventListener('ipc-message', event => {
-      document.getElementById('selectorForAssistant').value = event.channel;
+      console.log("event", event);
+      const channel = event.channel;
+
+      if (channel === "search-count") {
+        const count = event.args[0];
+        console.log("count is", count);
+        document.getElementById('matchCount').innerHTML = count;
+      } else {
+        document.getElementById('selectorForAssistant').value = event.channel;
+      }
     })
 
     webview.addEventListener('dom-ready', () => {
