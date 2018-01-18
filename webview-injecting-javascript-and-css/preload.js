@@ -49,3 +49,8 @@ const { ipcRenderer } = require('electron');
 const sendSelectorToRenderer = (selector) => {
   ipcRenderer.sendToHost(selector);
 }
+
+
+ipcRenderer.on('from-webview', (event, message) => {
+  console.log(message);
+})

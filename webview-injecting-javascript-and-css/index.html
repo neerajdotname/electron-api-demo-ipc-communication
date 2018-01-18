@@ -32,6 +32,7 @@
 
     webview.addEventListener('ipc-message', event => {
     document.getElementById('selectorForAssistant').value = event.channel;
+    webview.send("from-webview", "this message is from webview");
   })
 
     webview.addEventListener('dom-ready', () => {
