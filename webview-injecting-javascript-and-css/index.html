@@ -33,12 +33,10 @@
     webview.addEventListener('did-stop-loading', loadstop)
 
     webview.addEventListener('ipc-message', event => {
-      console.log("event", event);
       const channel = event.channel;
 
       if (channel === "search-count") {
         const count = event.args[0];
-        console.log("count is", count);
         document.getElementById('matchCount').innerHTML = count;
       } else {
         document.getElementById('selectorForAssistant').value = event.channel;
@@ -55,7 +53,6 @@
 
    handleFormSubmission = () => {
     const inputSelectorValue = document.getElementById("selectorForAssistant").value;
-    console.log("inputSelectorValue is", inputSelectorValue);
     webview.send("selector-search", inputSelectorValue );
    }
 
