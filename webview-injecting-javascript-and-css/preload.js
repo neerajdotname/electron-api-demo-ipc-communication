@@ -17,11 +17,18 @@ const handleMouseOut = (event) => {
   $el.removeClass("hintBox");
 }
 
-const addTracking = () => {
-    $('*').on('mousemove', handleMouseMove);
-    $('*').on('mouseout', handleMouseOut);
+const handleMouseClick = (event) => {
+  const $el = $(event.target);
+  const selector = "selector"
+  event.preventDefault();
+  sendSelectorToRenderer(selector)
 }
 
+const addTracking = () => {
+  $('*').on('mousemove', handleMouseMove);
+  $('*').on('mouseout', handleMouseOut);
+  $('*').on('click', handleMouseClick);
+}
 
 document.addEventListener("DOMContentLoaded", function(event) {
 
@@ -35,5 +42,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   // Was not able to figure out when jQuery is fully loaded
     setTimeout(addTracking, 2000);
-
 });
+
+const { ipcRenderer } = require('electron');
+
+const sendSelectorToRenderer = (selector) => {
+  ipcRenderer.sendToHost(selector);
+}
